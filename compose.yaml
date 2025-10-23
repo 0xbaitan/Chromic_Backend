@@ -1,9 +1,45 @@
 services:
-  mongodb:
+  database:
     image: 'mongo:latest'
+    container_name: chromic_db
+    restart: on-failure
     environment:
-      - 'MONGO_INITDB_DATABASE=mydatabase'
-      - 'MONGO_INITDB_ROOT_PASSWORD=secret'
-      - 'MONGO_INITDB_ROOT_USERNAME=root'
+      - 'MONGO_INITDB_DATABASE=chromic'
+      - 'MONGO_INITDB_ROOT_PASSWORD=password'
+      - 'MONGO_INITDB_ROOT_USERNAME=admin'
     ports:
-      - '27017'
+      - "37017:27017"
+    volumes:
+      - ./mongodb/initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - mongodb-data:/data/db/
+      - mongodb-log:/var/log/mongodb/
+    networks:
+      - chromic_network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chromic_backend
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - "8080:8080"
+    networks:
+      - chromic_network
+
+networks:
+    chromic_network:
+        driver: bridge
+
+volumes:
+  mongodb-data:
+      driver: local
+      name: mongo-data
+  mongodb-log:
+      driver: local
+      name: mongo-log
+
+
+
