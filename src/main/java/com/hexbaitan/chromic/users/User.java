@@ -16,7 +16,7 @@ import java.util.UUID;
 public class User {
 
     @Id
-    private UUID id;
+    private UUID id = UUID.randomUUID();
 
     @Field()
     private String givenName;
