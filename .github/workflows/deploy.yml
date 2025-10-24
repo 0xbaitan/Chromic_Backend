@@ -39,7 +39,7 @@ jobs:
         run: ./gradlew test
 
       - name: Upload artifact (JAR)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: spring-boot-jar
           path: build/libs/*.jar
