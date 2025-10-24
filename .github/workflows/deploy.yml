@@ -1,7 +1,5 @@
 name: Chromic Backend CI/CD Pipeline
 
-name: Spring Boot CI/CD with Gradle
-
 on:
   push:
     branches:
