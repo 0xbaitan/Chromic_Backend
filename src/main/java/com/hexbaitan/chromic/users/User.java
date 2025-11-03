@@ -3,6 +3,7 @@ package com.hexbaitan.chromic.users;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
@@ -20,6 +21,13 @@ public class User {
 
     @Field()
     private String givenName;
+
+    @Field()
+    @Indexed(unique = true)
+    private String emailId;
+
+    @Field()
+    private String password;
 
     @Field()
     private String surname;
