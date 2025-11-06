@@ -22,4 +22,7 @@ public record CustomUserDetails(User user) implements UserDetails {
     public String getUsername() {
         return user.getEmailId();
     }
+
+
+
 }

@@ -11,12 +11,12 @@ public interface ICreateUserDtoMapper {
 
     CreateUserDto toDto(User user);
 
-    @Mapping( target="password", qualifiedByName = "EncodedPassword")
+    @Mapping( target="password", qualifiedByName = "encodedPassword")
     User toEntity(CreateUserDto dto, @Context PasswordEncoder passwordEncoder);
 
 
-    @Named("EncodedPassword")
-    default String encodePassword(String rawPassword, @Context PasswordEncoder passwordEncoder) {
+    @Named("encodedPassword")
+    default String encodedPassword(String rawPassword, @Context PasswordEncoder passwordEncoder) {
         return passwordEncoder.encode(rawPassword);
     }
 

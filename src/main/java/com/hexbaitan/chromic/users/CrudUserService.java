@@ -13,7 +13,6 @@ import java.util.UUID;
 public class CrudUserService {
 
 
-
     private final CrudUserRepository userRepository;
 
     private final ICreateUserDtoMapper dtoMapper;
@@ -26,7 +25,13 @@ public class CrudUserService {
         this.dtoMapper = dtoMapper;
         this.passwordEncoder = passwordEncoder;
     }
-  
+
+
+    public User getUser(String emailId) throws Exception {
+        return this.userRepository.findByEmailId(emailId).orElseThrow(
+                () -> new Exception("User doesn't exist")
+        );
+    }
 
     public User createUser(CreateUserDto dto) {
         User user = this.dtoMapper.toEntity(dto, passwordEncoder);
@@ -36,7 +41,6 @@ public class CrudUserService {
     public void deleteUser(UUID id) {
         this.userRepository.deleteById(id);
     }
-
 
 
 }
